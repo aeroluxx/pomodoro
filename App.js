@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   containerButton: {
     flexDirection: 'row',
@@ -23,9 +23,9 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Timer />
         <View style={styles.containerButton}>
-          <Button title='Stop'/>
-          <Button title='Start'/>
-          <Button title='Skip'/>
+          <Button title="Stop" />
+          <Button title="Start" />
+          <Button title="Skip" />
         </View>
       </View>
     )
