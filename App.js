@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from './components/Button'
 import Timer from './components/Timer'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -18,10 +18,14 @@ const styles = StyleSheet.create({
 })
 
 export default class App extends React.Component {
+  updateData = value => {
+    this.setState({ name: value })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Timer />
+        <Timer updateData={this.updateData} />
         <View style={styles.containerButton}>
           <Button title="Stop" />
           <Button title="Start" />
