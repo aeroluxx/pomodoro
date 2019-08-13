@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    //borderWidth: 1,
     borderColor: 'black',
     marginHorizontal: 20,
     height: 100,
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default class Button extends React.Component {
+export default class ButtonStop extends React.Component {
   constructor() {
     super()
     this.state = {
-      stateTimer: true
+      resetTimer: true
     }
   }
 
@@ -31,13 +32,10 @@ export default class Button extends React.Component {
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
-          this.props.start(this.state.stateTimer)
-          this.setState(prevState => ({
-            stateTimer: !prevState.stateTimer
-          }))
+          this.props.stop(this.state.resetTimer)
         }}
       >
-        <Text style={styles.fontStyle}>{this.state.stateTimer ? this.props.title : 'Pause'}</Text>
+        <Text style={styles.fontStyle}>{this.props.title}</Text>
       </TouchableOpacity>
     )
   }
