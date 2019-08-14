@@ -1,28 +1,28 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import Timer from './components/Timer'
+import Button from './components/Button'
 import { vibrate } from './utils'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#e21f34',
+    alignItems: 'center',
     justifyContent: 'center'
+  },
+  containerButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  lineSkip: {
+    height: 1,
+    backgroundColor: 'white',
+    alignSelf: 'flex-start',
+    marginBottom: 40
   }
 })
-
-class Count extends React.Component {
-  shouldComponentUpdate() {
-    return !this.props.comp
-  }
-
-  render() {
-    return (
-      <Text style={{ fontSize: 70 }}>
-        {this.props.minutes}:{this.props.seconds}
-      </Text>
-    )
-  }
-}
 
 export default class App extends React.Component {
   constructor() {
@@ -38,7 +38,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.dec, 1000)
+    this.interval = setInterval(this.dec, 1)
   }
 
   componentWillUnmount() {
@@ -62,7 +62,7 @@ export default class App extends React.Component {
         this.setState({ completed: true })
         this.setState({ isOn: false })
         // clearInterval(this.interval)
-        vibrate()
+        vibrate
       }
     }
   }
@@ -107,10 +107,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ alignItems: 'center', flex: 3, justifyContent: 'center' }}>
-          <Count minutes={this.state.minutes} seconds={this.state.seconds} comp={this.state.completed} />
-        </View>
-        <View style={{ justifyContent: 'space-around', flexDirection: 'row', flex: 1, alignItems: 'center' }}>
+        <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
+        <View style={[styles.lineSkip, { width: `${14.3 * this.state.skipCounter}%` }]} />
+        <View style={styles.containerButton}>
           <Button title="Reset" onPress={this.handleReset} />
           <Button
             title={this.state.isOn ? 'Pause' : 'Start'}

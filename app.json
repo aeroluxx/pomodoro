@@ -1,11 +1,15 @@
 {
   "expo": {
-    "name": "project1",
+    "name": "pomodoro",
     "description": "This project is really great.",
-    "slug": "project1",
+    "slug": "edx",
     "privacy": "public",
     "sdkVersion": "33.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +19,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.edx.pomodoro"
     }
   }
 }
