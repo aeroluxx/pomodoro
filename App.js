@@ -7,7 +7,6 @@ import { vibrate } from './utils'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e21f34',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   lineSkip: {
-    height: 1,
+    height: 3,
     backgroundColor: 'white',
     alignSelf: 'flex-start',
     marginBottom: 40
@@ -33,7 +32,7 @@ export default class App extends React.Component {
       seconds: '00',
       isOn: false,
       completed: false,
-      skipCounter: 1
+      skipCounter: 0
     }
   }
 
@@ -50,19 +49,19 @@ export default class App extends React.Component {
       if (this.state.seconds > 0) {
         this.setState(prevState => ({ seconds: String(+prevState.seconds - 1) }))
         if (+this.state.seconds < 10) {
-          this.setState({ seconds: `0${this.state.seconds}` })
+          this.setState({ seconds: `0${this.state.seconds}` }) // eslint-disable-line
         }
       } else {
         this.setState(prevState => ({ minutes: String(+prevState.minutes - 1), seconds: '59' }))
         if (+this.state.minutes < 10) {
-          this.setState({ minutes: `0${String(this.state.minutes)}` })
+          this.setState({ minutes: `0${String(this.state.minutes)}` }) // eslint-disable-line
         }
       }
       if (this.state.minutes === '00' && this.state.seconds === '00') {
         this.setState({ completed: true })
         this.setState({ isOn: false })
-        // clearInterval(this.interval)
-        vibrate
+        this.handleSkip()
+        vibrate()
       }
     }
   }
@@ -82,9 +81,9 @@ export default class App extends React.Component {
   }
 
   handleSkip = () => {
-    if ([0, 2, 4, 6].includes(this.state.skipCounter)) {
+    if ([1, 3, 5, 7].includes(this.state.skipCounter)) {
       this.setWork()
-    } else if ([1, 3, 5].includes(this.state.skipCounter)) {
+    } else if ([0, 2, 4].includes(this.state.skipCounter)) {
       this.setShortbr()
     } else this.setLongbr()
     this.setState(prevState => ({
@@ -105,8 +104,14 @@ export default class App extends React.Component {
   }
 
   render() {
+    //console.warn(this.state.isOn)
     return (
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: ![1, 3, 5, 7].includes(this.state.skipCounter) ? '#e21f34' : '#49e2a7' }
+        ]}
+      >
         <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
         <View style={[styles.lineSkip, { width: `${14.3 * this.state.skipCounter}%` }]} />
         <View style={styles.containerButton}>
